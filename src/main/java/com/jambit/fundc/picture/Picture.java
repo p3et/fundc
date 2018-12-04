@@ -4,6 +4,6 @@ import lombok.Value;
 
 @Value
 public class Picture {
-    private final long id;
+    private final Long id;
     private final String data;
 }

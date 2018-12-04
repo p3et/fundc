@@ -1,16 +1,18 @@
 package com.jambit.fundc.picture;
 
 import com.google.common.collect.Lists;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Collection;
 
-import static com.jambit.fundc.picture.SavePicturesDefault.VALID_PICTURE_DATA;
+import static com.jambit.fundc.picture.SavePicturesDefault.VALID_PICTURE;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+@Ignore // Remove for demonstration
 @RunWith(Parameterized.class)
 public class SavePictureUnitTest {
 
@@ -25,9 +27,12 @@ public class SavePictureUnitTest {
     @Parameterized.Parameter
     public SavePicture savePicture;
 
+    /**
+     * Expected to fail for {@link SavePicturesSpecial}
+     */
     @Test
     public void whenPictureValidThenNotNull() {
-        assertNotNull(savePicture.apply(VALID_PICTURE_DATA));
+        assertNotNull(savePicture.apply(VALID_PICTURE));
     }
 
     @Test

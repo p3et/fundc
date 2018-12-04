@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static com.jambit.fundc.common.ResultCode.INVALID_PICTURE;
 import static com.jambit.fundc.common.ResultCode.SUCCESS;
 import static com.jambit.fundc.common.ResultCode.USER_ALREADY_EXISTS;
-import static com.jambit.fundc.picture.SavePicturesDefault.VALID_PICTURE_DATA;
+import static com.jambit.fundc.picture.SavePicturesDefault.VALID_PICTURE;
 import static com.jambit.fundc.user.GetUserByNameDefault.EXISTING_USER_NAME;
 import static org.junit.Assert.assertEquals;
 
@@ -20,7 +20,7 @@ public abstract class CreateUserIntegrationTestBase {
 
     @Test
     public void whenUserNotExistsAndValidPictureThenSuccess() {
-        whenUserAndPictureThenExpect("foo", VALID_PICTURE_DATA, SUCCESS);
+        whenUserAndPictureThenExpect("foo", VALID_PICTURE, SUCCESS);
     }
 
     @Test
@@ -30,7 +30,7 @@ public abstract class CreateUserIntegrationTestBase {
 
     @Test
     public void whenUserExistsThenUserAlreadyExists() {
-        whenUserAndPictureThenExpect(EXISTING_USER_NAME, VALID_PICTURE_DATA, USER_ALREADY_EXISTS);
+        whenUserAndPictureThenExpect(EXISTING_USER_NAME, VALID_PICTURE, USER_ALREADY_EXISTS);
     }
 
     private void whenUserAndPictureThenExpect(String userName, String pictureData, ResultCode expected) {
