@@ -5,6 +5,7 @@ import com.jambit.fundc.picture.normalization.NormalizePicture;
 import com.jambit.fundc.picture.SavePicture;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 
 import static com.jambit.fundc.common.ResultCode.DATABASE_ERROR;
