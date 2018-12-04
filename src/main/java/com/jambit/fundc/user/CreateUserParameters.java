@@ -3,7 +3,7 @@ package com.jambit.fundc.user;
 import lombok.Value;
 
 @Value
-public class UserParameters {
+public class CreateUserParameters {
     private final String name;
     private final String pictureData;
 }

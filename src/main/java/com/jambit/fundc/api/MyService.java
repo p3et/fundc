@@ -4,7 +4,7 @@ import com.jambit.fundc.common.ResultCode;
 import com.jambit.fundc.picture.UploadPictures;
 import com.jambit.fundc.picture.UploadPicturesParameters;
 import com.jambit.fundc.user.CreateUser;
-import com.jambit.fundc.user.UserParameters;
+import com.jambit.fundc.user.CreateUserParameters;
 import org.springframework.stereotype.Service;
 
 import static com.jambit.fundc.common.ResultCode.UNKNOWN_ERROR;
@@ -24,7 +24,7 @@ public class MyService {
         this.createUser = createUser;
     }
 
-    public ResultCode createUser(UserParameters parameters) {
+    public ResultCode createUser(CreateUserParameters parameters) {
         return of(parameters)
                  .map(createUser)
                  .orElse(UNKNOWN_ERROR);
