@@ -1,7 +1,7 @@
 package com.jambit.fundc.user;
 
 import com.jambit.fundc.common.ResultCode;
-import com.jambit.fundc.picture.NormalizePicture;
+import com.jambit.fundc.picture.normalization.NormalizePicture;
 import com.jambit.fundc.picture.SavePicture;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.tuple.ImmutablePair;

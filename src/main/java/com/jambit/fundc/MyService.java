@@ -1,4 +1,4 @@
-package com.jambit.fundc.api;
+package com.jambit.fundc;
 
 import com.jambit.fundc.common.ResultCode;
 import com.jambit.fundc.picture.UploadPictures;
