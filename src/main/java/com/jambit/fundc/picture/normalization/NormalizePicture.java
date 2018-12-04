@@ -1,4 +1,4 @@
-package com.jambit.fundc.picture;
+package com.jambit.fundc.picture.normalization;
 
 import java.util.function.Function;
 

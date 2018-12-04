@@ -1,6 +1,7 @@
 package com.jambit.fundc.picture;
 
 import com.jambit.fundc.common.ResultCode;
+import com.jambit.fundc.picture.normalization.NormalizePicture;
 import com.jambit.fundc.user.GetUserByName;
 import com.jambit.fundc.user.User;
 import lombok.AllArgsConstructor;

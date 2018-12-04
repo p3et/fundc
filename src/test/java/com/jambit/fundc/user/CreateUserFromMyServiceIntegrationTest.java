@@ -1,7 +1,7 @@
 package com.jambit.fundc.user;
 
 
-import com.jambit.fundc.api.MyService;
+import com.jambit.fundc.MyService;
 import com.jambit.fundc.common.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 

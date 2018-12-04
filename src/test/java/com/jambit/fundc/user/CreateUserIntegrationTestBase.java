@@ -1,6 +1,6 @@
 package com.jambit.fundc.user;
 
-import com.jambit.fundc.api.MyConfiguration;
+import com.jambit.fundc.MyConfiguration;
 import com.jambit.fundc.common.ResultCode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
