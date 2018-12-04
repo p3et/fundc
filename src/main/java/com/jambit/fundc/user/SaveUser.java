@@ -1,9 +1,12 @@
 package com.jambit.fundc.user;
 
-import com.jambit.fundc.picture.Picture;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.function.Function;
 
-public interface SaveUser extends Function<Pair<UserParameters, Picture>, User> {
+/**
+ * Here, we don't use a parameters object but a generic 2-tuple (pair.)
+ * Further on, this functionality can be package private.
+ */
+interface SaveUser extends Function<Pair<String, Long>, User> {
 }
