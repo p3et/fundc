@@ -1,17 +1,19 @@
 package com.jambit.fundc.functional.user;
 
-import org.apache.commons.lang3.tuple.Pair;
+import com.jambit.fundc.functional.picture.Picture;
+import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
-import static com.jambit.fundc.functional.user.GetUserByNameDefault.EXISTING_USER_NAME;
+import java.util.Optional;
 
 @Component
 class SaveUserDefault implements SaveUser {
 
     @Override
-    public User apply(Pair<String, Long> pair) {
-        return pair.getLeft().equals(EXISTING_USER_NAME) ?
-                 null :
-                 new User(1, pair.getLeft(), pair.getRight());
+    public Optional<User> apply(final Pair<CreateUserParameters, Picture> pair) {
+        final CreateUserParameters parameters = pair.getValue0();
+        final Picture picture = pair.getValue1();
+
+        return Optional.of(new User(1, parameters.getName(), picture.getId()));
     }
 }

@@ -5,33 +5,30 @@ import com.jambit.fundc.functional.picture.UploadPictures;
 import com.jambit.fundc.functional.picture.UploadPicturesParameters;
 import com.jambit.fundc.functional.user.CreateUser;
 import com.jambit.fundc.functional.user.CreateUserParameters;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static java.util.Optional.of;
+import java.util.Optional;
 
 /**
  * Only this class shall be exposed to the public!
  */
 @Service
+@AllArgsConstructor
 public class MyService {
 
-    private final UploadPictures uploadPictures;
     private final CreateUser createUser;
-
-    public MyService(final UploadPictures uploadPictures, final CreateUser createUser) {
-        this.uploadPictures = uploadPictures;
-        this.createUser = createUser;
-    }
+    private final UploadPictures uploadPictures;
 
     public ResultCode createUser(final CreateUserParameters parameters) {
-        return of(parameters)
-                 .map(createUser)
-                 .orElse(ResultCode.UNKNOWN_ERROR);
+        return Optional.ofNullable(parameters)
+                       .map(createUser)
+                       .orElse(ResultCode.EMPTY_PARAMETERS);
     }
 
     public ResultCode uploadPicures(final UploadPicturesParameters parameters) {
-        return of(parameters)
-                 .map(uploadPictures)
-                 .orElse(ResultCode.UNKNOWN_ERROR);
+        return Optional.ofNullable(parameters)
+                       .map(uploadPictures)
+                       .orElse(ResultCode.EMPTY_PARAMETERS);
     }
 }

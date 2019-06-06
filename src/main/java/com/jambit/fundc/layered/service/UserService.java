@@ -12,13 +12,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void createUser(UserRequest request) throws UserAlreadyExistsException {
+    public void createUser(final UserRequest request) throws UserAlreadyExistsException {
 
         if (userRepository.findByName(request.getName()) != null) {
             throw new UserAlreadyExistsException();
         }
 
-        UserEntity entity = EnityConverter.convertUserRequest(request);
+        final UserEntity entity = EnityConverter.convertUserRequest(request);
 
         if (entity != null) {
             userRepository.save(entity);

@@ -8,13 +8,16 @@ import org.junit.runners.Parameterized;
 
 import java.util.Collection;
 
+import static com.jambit.fundc.functional.OptionalTestUtils.assertAbsent;
+import static com.jambit.fundc.functional.OptionalTestUtils.assertPresent;
 import static com.jambit.fundc.functional.picture.SavePicturesDefault.VALID_PICTURE;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 @Ignore // Remove for demonstration
 @RunWith(Parameterized.class)
 public class SavePictureUnitTest {
+
+    @Parameterized.Parameter
+    public SavePicture savePicture;
 
     @Parameterized.Parameters
     public static Collection<SavePicture> data() {
@@ -24,20 +27,17 @@ public class SavePictureUnitTest {
         );
     }
 
-    @Parameterized.Parameter
-    public SavePicture savePicture;
-
     /**
      * Expected to fail for {@link SavePicturesSpecial}
      */
     @Test
-    public void whenPictureValidThenNotNull() {
-        assertNotNull(savePicture.apply(VALID_PICTURE));
+    public void whenPictureValidThenPresent() {
+        assertPresent(savePicture.apply(VALID_PICTURE));
     }
 
     @Test
-    public void whenPictureInvalidThenNull() {
-        assertNull(savePicture.apply("Foobar"));
+    public void whenPictureInvalidThenAnsent() {
+        assertAbsent(savePicture.apply("Foobar"));
     }
 }
 

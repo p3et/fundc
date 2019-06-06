@@ -15,13 +15,21 @@ import static com.jambit.fundc.functional.user.GetUserByNameDefault.EXISTING_USE
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { MyConfiguration.class })
+@ContextConfiguration(classes = {MyConfiguration.class})
 public abstract class CreateUserIntegrationTestBase {
 
     @Test
     public void whenUserNotExistsAndValidPictureThenSuccess() {
         whenUserAndPictureThenExpect("foo", VALID_PICTURE, SUCCESS);
     }
+
+    private void whenUserAndPictureThenExpect(final String userName, final String pictureData, final ResultCode expected) {
+        final CreateUserParameters parameters = new CreateUserParameters(userName, pictureData);
+        final ResultCode resultCode = getResultFor(parameters);
+        assertEquals(expected, resultCode);
+    }
+
+    protected abstract ResultCode getResultFor(CreateUserParameters parameters);
 
     @Test
     public void whenUserNotExistsAndInvalidPictureThenInvalidPicture() {
@@ -32,12 +40,4 @@ public abstract class CreateUserIntegrationTestBase {
     public void whenUserExistsThenUserAlreadyExists() {
         whenUserAndPictureThenExpect(EXISTING_USER_NAME, VALID_PICTURE, USER_ALREADY_EXISTS);
     }
-
-    private void whenUserAndPictureThenExpect(String userName, String pictureData, ResultCode expected) {
-        final CreateUserParameters parameters = new CreateUserParameters(userName, pictureData);
-        final ResultCode resultCode = getResultFor(parameters);
-        assertEquals(expected, resultCode);
-    }
-
-    protected abstract ResultCode getResultFor(CreateUserParameters parameters);
 }

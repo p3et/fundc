@@ -3,50 +3,51 @@ package com.jambit.fundc.functional.picture.normalization;
 import org.junit.Test;
 import org.mockito.stubbing.Answer;
 
+import java.util.Optional;
+
+import static com.jambit.fundc.functional.OptionalTestUtils.assertAbsent;
+import static com.jambit.fundc.functional.OptionalTestUtils.assertPresent;
 import static com.jambit.fundc.functional.picture.SavePicturesDefault.VALID_PICTURE;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class NormalizePictureTest {
 
+    private static final Answer<Optional<String>> ANSWER_PRESENT = i -> Optional.of(i.getArgument(0));
+    private static final Answer<Optional<String>> ANSWER_ABSENT = i -> Optional.empty();
+
     @Test
     public void whenAllStepsSucceedThenNotNull() {
-        final NormalizePicture normalizePicture = injectMocksAndGetNormalization(
-          i -> i.getArgument(0), i -> i.getArgument(0));
+        final NormalizePicture normalizePicture = getNormalizationWithInjectedMocks(ANSWER_PRESENT, ANSWER_PRESENT);
 
-        assertNotNull(normalizePicture.apply(VALID_PICTURE));
+        assertPresent(normalizePicture.apply(VALID_PICTURE));
+    }
+
+    private NormalizePicture getNormalizationWithInjectedMocks(
+        final Answer<Optional<String>> dimensionNormalizationAnswer,
+        final Answer<Optional<String>> dataNormalizationAnswer
+    ) {
+        final NormalizePictureDimensions normalizePictureDimensions = mock(NormalizePictureDimensions.class);
+        when(normalizePictureDimensions.apply(any())).thenAnswer(dimensionNormalizationAnswer);
+
+        final NormalizePictureData normalizePictureData = mock(NormalizePictureData.class);
+        when(normalizePictureData.apply(any())).thenAnswer(dataNormalizationAnswer);
+
+        return new NormalizePictureDefault(normalizePictureDimensions, normalizePictureData);
     }
 
     @Test
     public void whenNormalizeDimensionsFailsThenNull() {
-        final NormalizePicture normalizePicture =
-          injectMocksAndGetNormalization(i -> null, i -> i.getArgument(0));
+        final NormalizePicture normalizePicture = getNormalizationWithInjectedMocks(ANSWER_ABSENT, ANSWER_PRESENT);
 
-        assertNull(normalizePicture.apply(VALID_PICTURE));
+        assertAbsent(normalizePicture.apply(VALID_PICTURE));
     }
 
     @Test
     public void whenNormalizeDataFailsThenNull() {
-        final NormalizePicture normalizePicture =
-          injectMocksAndGetNormalization(i -> i.getArgument(0), i -> null);
+        final NormalizePicture normalizePicture = getNormalizationWithInjectedMocks(ANSWER_PRESENT, ANSWER_ABSENT);
 
-        assertNull(normalizePicture.apply(VALID_PICTURE));
-    }
-
-    private NormalizePicture injectMocksAndGetNormalization(
-      final Answer<String> dimensionNormalizationAnswer,
-      final Answer<String> dataNormalizationAnswer
-    ) {
-
-        final NormalizeDimensions normalizeDimensions = mock(NormalizeDimensions.class);
-        final NormalizeData normalizeData = mock(NormalizeData.class);
-
-        when(normalizeDimensions.apply(any())).thenAnswer(dimensionNormalizationAnswer);
-        when(normalizeData.apply(any())).thenAnswer(dataNormalizationAnswer);
-
-        return new NormalizePictureDefault(normalizeDimensions, normalizeData);
+        assertAbsent(normalizePicture.apply(VALID_PICTURE));
     }
 }

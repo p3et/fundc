@@ -2,11 +2,13 @@ package com.jambit.fundc.functional.picture.normalization;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
-class NormalizeDimensionsDefault implements NormalizeDimensions {
+class NormalizeDimensionsDefault implements NormalizePictureDimensions {
 
     @Override
-    public String apply(String picture) {
-        return picture;
+    public Optional<String> apply(final String picture) {
+        return Optional.ofNullable(picture);
     }
 }

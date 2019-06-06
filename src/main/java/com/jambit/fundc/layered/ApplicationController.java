@@ -11,16 +11,16 @@ public class ApplicationController {
 
     private final UserService userService;
 
-    public String createUser(UserRequest request) {
+    public String createUser(final UserRequest request) {
 
-        boolean valid = ValidationHelper.validateUserRequest(request);
+        final boolean valid = ValidationHelper.validateUserRequest(request);
 
         if (valid) {
             try {
                 userService.createUser(request);
 
                 return "success";
-            } catch (UserAlreadyExistsException e) {
+            } catch (final UserAlreadyExistsException e) {
                 return "user already exists";
             }
         } else {

@@ -6,5 +6,5 @@ public enum ResultCode {
     INVALID_PICTURE,
     SUCCESS,
     DATABASE_ERROR,
-    UNKNOWN_ERROR
+    EMPTY_PARAMETERS
 }

@@ -3,20 +3,23 @@ package com.jambit.fundc.functional.picture.normalization;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static java.util.Optional.of;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
 public class NormalizePictureDefault implements NormalizePicture {
 
-    private final NormalizeDimensions normalizeDimensions;
-    private final NormalizeData normalizeData;
+    private final NormalizePictureDimensions normalizePictureDimensions;
+    private final NormalizePictureData normalizePictureData;
 
     @Override
-    public String apply(String picture) {
-        return of(picture)
-                 .map(normalizeDimensions)
-                 .map(normalizeData)
-                 .orElse(null);
+    public Optional<String> apply(final String picture) {
+        return Optional.of(picture)
+                       .map(normalizePictureDimensions)
+                       .filter(Optional::isPresent)
+                       .map(Optional::get)
+                       .map(normalizePictureData)
+                       .filter(Optional::isPresent)
+                       .map(Optional::get);
     }
 }
