@@ -1,12 +1,13 @@
 package com.jambit.fundc.functional.picture;
 
-import com.google.common.collect.Lists;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.jambit.fundc.functional.OptionalTestUtils.assertAbsent;
 import static com.jambit.fundc.functional.OptionalTestUtils.assertPresent;
@@ -21,10 +22,12 @@ public class SavePictureUnitTest {
 
     @Parameterized.Parameters
     public static Collection<SavePicture> data() {
-        return Lists.newArrayList(
-            new SavePicturesDefault(),
-            new SavePicturesSpecial()
-        );
+        return Stream
+            .of(
+                new SavePicturesDefault(),
+                new SavePicturesSpecial()
+            )
+            .collect(Collectors.toList());
     }
 
     /**
